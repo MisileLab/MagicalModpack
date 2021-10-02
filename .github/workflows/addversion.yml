@@ -17,5 +17,5 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "release.zip"
-        tag: ${{ SHORTSHA }}
+        tag: ${{ env.SHORTSHA }}
         token: ${{ secrets.GITHUB_TOKEN }}
