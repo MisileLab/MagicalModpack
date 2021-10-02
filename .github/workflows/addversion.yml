@@ -15,4 +15,5 @@ jobs:
       with:
         artifacts: "release.zip"
         bodyFile: "body.md"
+        tag: ${{ GITHUB_SHA }}
         token: ${{ secrets.GITHUB_TOKEN }}
