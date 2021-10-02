@@ -1,7 +1,5 @@
 name: GitHub Actions Demo
 on: [push]
-env: 
-  SHORTSHA: $(git rev-parse --short=6 ${{ github.sha }})
 
 jobs:
   build:
@@ -14,8 +12,16 @@ jobs:
         type: 'zip'
         filename: 'release.zip'
         exclusions: '*.git* *.github* *LICENSE*'
-    - uses: ncipollo/release-action@v1
+    - name: tag version
+      id: tag-version
+      uses: christophebedard/tag-version-commit@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        tag: $tag
+    - name: release
+      uses: ncipollo/release-action@v1
       with:
         artifacts: "release.zip"
-        tag: ${{ env.SHORTSHA }}
+        tag: ${{ env.tag }}
         token: ${{ secrets.GITHUB_TOKEN }}
