@@ -1,5 +1,8 @@
 name: GitHub Actions Demo
 on: [push]
+env: 
+  SHORTSHA: $(git rev-parse --short=6 ${{ github.sha }})
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,5 +17,5 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "release.zip"
-        tag: ${{ github.sha }}
+        tag: ${{ SHORTSHA }}
         token: ${{ secrets.GITHUB_TOKEN }}
