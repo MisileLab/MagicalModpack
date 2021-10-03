@@ -12,16 +12,8 @@ jobs:
         type: 'zip'
         filename: 'release.zip'
         exclusions: '*.git* *.github* *LICENSE*'
-    - name: tag version
-      id: tag-version
-      uses: christophebedard/tag-version-commit@v1
+    - name: upload artifact
+      uses: actions/upload-artifact@v2
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-      env:
-        tag: ${{ steps.tag-version.outputs.tag }}
-    - name: release
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: "release.zip"
-        tag: ${{ env.tag }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        name: release
+        path: release.zip
